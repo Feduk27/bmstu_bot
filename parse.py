@@ -9,6 +9,17 @@ def get_html(URL, HEADERS):
     r = requests.get(URL, headers=HEADERS).text
     return r
 
+# returns faculty name from cathedra name. Ex: СМ13 -> СМ
+def get_front_marker(string):
+    result = ''
+    for letter in string:
+        try:
+            int(letter)
+            return result
+        except:
+            result += letter
+    return result
+
 # parsing schedule and info about current week from university website
 def get_schedule(URL, HEADERS):
     schedule = []
@@ -72,7 +83,7 @@ def get_depart_names(URL, HEADERS, fac_name):
     result_departs = []
     for depart in departs:
         depart_txt = depart.get_text()
-        front_marker = depart_txt[:len(fac_name)]
+        front_marker = get_front_marker(depart_txt)
         if front_marker == fac_name:
             result_departs.append(depart.get_text())
     if result_departs == []:
@@ -94,8 +105,9 @@ def groups_name_array(URL, HEADERS, dep_name):
     if groups != []:
         return groups
     else:
-        print('Error occurred in groups_name_array(). Department not found.')
-        return None
+        print('Error occurred in groups_name_array(). Department not found or '
+              'there are no active groups in the department')
+        return False
 
 def even_odd_check(URL_for_evenodd, HEADERS):
     html = get_html(URL_for_evenodd, HEADERS)
@@ -109,12 +121,11 @@ def even_odd_check(URL_for_evenodd, HEADERS):
         print(1)
 
 
-#!!!!!пофиксить баг с нахождением кафедр(ИУК находится вместе с ИУ)
 
 # dep_name = 'ЮР-53'
 # depart_url = get_group_url(URL, HEADERS, dep_name)
 # schedule = get_schedule(depart_url, HEADERS)
 # print(schedule)
-# print(groups_name_array(URL, HEADERS, 'МТ32'))
-# print(get_depart_names(URL, HEADERS, 'ЮР'))
+print(groups_name_array(URL, HEADERS, 'АК3'))
+# print(get_depart_names(URL, HEADERS, 'ИУ'))
 # print(even_odd_check(URL_for_evenodd, HEADERS))
