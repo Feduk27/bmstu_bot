@@ -3,6 +3,18 @@ from memory_profiler import profile
 from bs4 import BeautifulSoup
 from parse_cfg import URL, HEADERS, URL_for_evenodd
 
+# from functools import wraps
+# from time import time
+#
+# def timer(func):
+#     @wraps(func)
+#     def wrapper(*args, **kwargs):
+#         start = time()
+#         res = func(*args, **kwargs)
+#         print(time() - start)
+#         return res
+#     return wrapper
+
 
 # getting html code
 def get_html(URL, HEADERS):
@@ -21,6 +33,7 @@ def get_front_marker(string):
     return result
 
 # parsing schedule and info about current week from university website
+
 def get_schedule(URL, HEADERS):
     schedule = []
     html = get_html(URL, HEADERS)
@@ -126,6 +139,6 @@ def even_odd_check(URL_for_evenodd, HEADERS):
 # depart_url = get_group_url(URL, HEADERS, dep_name)
 # schedule = get_schedule(depart_url, HEADERS)
 # print(schedule)
-print(groups_name_array(URL, HEADERS, 'АК3'))
+# print(groups_name_array(URL, HEADERS, 'АК3'))
 # print(get_depart_names(URL, HEADERS, 'ИУ'))
 # print(even_odd_check(URL_for_evenodd, HEADERS))

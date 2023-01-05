@@ -86,8 +86,6 @@ def test_callback(call):
         else:
             bot.send_message(chat_id=call.message.chat.id, text='There are no active groups in selected department. '
                                                                 'Please choose another department')
-
-
     elif marker == '%':
         group_name = received_callback.replace('%', '')
         url = get_group_url(URL, HEADERS, group_name)
